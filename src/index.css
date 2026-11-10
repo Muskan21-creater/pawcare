@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Layout idea: navy hero that is mostly a search box, then calm neutral
+     sections; one teal action colour, amber for ratings, coral only for urgency. */
+  --ink: 14 27 44;          /* deep navy: headings, hero, footer */
+  --ink-soft: 52 68 92;     /* body text */
+  --ink-muted: 99 113 133;  /* secondary text */
+  --brand: 13 128 118;      /* teal: primary actions */
+  --brand-deep: 9 97 90;
+  --brand-tint: 228 244 241;
+  --surface: 245 247 244;   /* page background, neutral with a green bias */
+  --line: 224 230 226;
+  --sun: 240 167 50;        /* ratings */
+  --alert: 214 79 56;       /* emergency only */
+  --alert-tint: 253 238 234;
+  color-scheme: light;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-surface font-sans text-ink-soft antialiased; }
+  h1, h2, h3 { @apply font-display text-ink; text-wrap: balance; }
+  :focus-visible { @apply outline-none ring-2 ring-brand ring-offset-2; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
+  .btn { @apply inline-flex min-h-[44px] items-center justify-center gap-2 whitespace-nowrap rounded-xl px-4 text-sm font-semibold transition duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-brand text-white shadow-sm hover:bg-brand-deep; }
+  .btn-secondary { @apply btn border border-line bg-white text-ink hover:border-ink/30 hover:bg-surface; }
+  .btn-ghost { @apply btn text-ink-soft hover:bg-ink/5 hover:text-ink; }
+  .btn-alert { @apply btn bg-alert text-white shadow-sm hover:brightness-95; }
+  .card { @apply rounded-2xl border border-line bg-white shadow-card; }
+  .pill { @apply inline-flex min-h-[36px] items-center gap-1.5 rounded-full border border-line bg-white px-3.5 text-sm font-medium text-ink-soft transition duration-200 hover:border-brand/50 hover:text-ink; }
+  .pill-active { @apply border-brand bg-brand-tint text-brand-deep hover:border-brand hover:text-brand-deep; }
+  .field { @apply min-h-[44px] w-full rounded-xl border border-line bg-white px-3.5 text-[15px] text-ink placeholder:text-ink-muted transition focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.14em] text-brand-deep; }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.animate-rise { animation: rise 0.28s ease-out both; }
